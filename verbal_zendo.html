@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<meta name="robots" content="noindex">
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Verbal Zendo</title>
+</head>
+<body>
+  <div id="koan">Koan 1/7</div>
+  <br>
+  <div id="testsPerformed">"Less Wrong" has the buddha-nature.<br>"Increasingly Correct" does NOT have the buddha-nature.<br></div>
+  <br>
+  <input type="" id="theInput"> <button onclick="test()">Test</button>
+  <br>
+  <br>
+  <button onclick="show_rule()">Show Rule</button>
+  <br>
+  <br>
+  <div id="theRule"></div>
+  <br>
+  <button onclick="next_koan()">Next Koan</button>
+<b style="font-size:28px">
+</div>
+  
+</b>
+<script id="jsbin-javascript">
+
+koanNumber=1
+
+permittedCharacters = "abcdefghijklmnopqrstuvwxyz -ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+function test(){
+	subject = document.getElementById("theInput").value
+	if (!validate_input(subject)){
+		document.getElementById("testsPerformed").innerHTML = document.getElementById("testsPerformed").innerHTML + '"' + subject + '" contains forbidden characters. <br>'
+	}
+	else if (evaluate_input(subject)){
+		document.getElementById("testsPerformed").innerHTML = document.getElementById("testsPerformed").innerHTML + '"' + subject + '" has the buddha-nature. <br>'
+	}
+	else{
+		document.getElementById("testsPerformed").innerHTML = document.getElementById("testsPerformed").innerHTML + '"' + subject + '" does NOT have the buddha-nature. <br>'
+	}
+}
+
+//-----------------------
+
+function validate_input(input){
+	for (ch in input){
+		if (!permittedCharacters.includes(input[ch])){
+			return false
+		}
+	}
+	return true
+}
+
+function evaluate_input(input){
+	if (koanNumber==1){
+		return evaluate_per_koan_one(input)
+	}
+	if (koanNumber==2){
+		return evaluate_per_koan_two(input)
+	}
+	if (koanNumber==3){
+		return evaluate_per_koan_three(input)
+	}
+	if (koanNumber==4){
+		return evaluate_per_koan_four(input)
+	}
+	if (koanNumber==5){
+		return evaluate_per_koan_five(input)
+	}
+	if (koanNumber==6){
+		return evaluate_per_koan_six(input)
+	}
+	if (koanNumber==7){
+		return evaluate_per_koan_seven(input)
+	}
+	return false
+}
+
+function evaluate_per_koan_one(input){
+	theList = input.split(" ")
+	for (var i=0; i<(theList.length-1); i++){
+		if (theList[i].length > theList[i+1].length){
+			return false
+		}
+	}
+	return true
+}
+
+function evaluate_per_koan_two(input){
+	if (input.includes("w")){
+		return false
+	}
+	return true
+}
+
+function evaluate_per_koan_three(input){
+	vCount=0
+	cCount=0
+	for (ch in input){
+		if ("aAeEiIoOuU".includes(input[ch])){
+			vCount+=1
+		}
+		else if ("yY ".includes(input[ch])){
+		
+		}
+		else{
+			cCount+=1
+		}
+	}
+	if (cCount>vCount){
+		return false
+	}
+	return true
+}
+
+function evaluate_per_koan_four(input){
+	if (input=="France"){
+		return true
+	}
+	return false
+}
+
+function evaluate_per_koan_five(input){
+	theList = input.split(" ")
+	if (theList.length%2==0){
+		return true
+	}
+	return false
+}
+
+function evaluate_per_koan_six(input){
+	used=""
+	for (ch in input){
+		if (!" -".includes(input[ch])){
+			if (!used.includes(input[ch].toLowerCase())){
+				used = used + input[ch].toLowerCase()
+			}
+			else{
+				return false
+			}
+		}
+	}
+	return true
+}
+
+function evaluate_per_koan_seven(input){
+	theList=input.split(" ")
+	if (theList.length==3){
+		if (theList[0].length!=theList[1].length && theList[1].length!=theList[2].length && theList[2].length!=theList[0].length){
+			return true
+		} 
+	}
+	return false
+}
+
+//-----------------------
+
+function show_rule(){
+	if (koanNumber==1){
+		document.getElementById("theRule").innerHTML = "Words are in ascending order of length."
+	}
+	if (koanNumber==2){
+		document.getElementById("theRule").innerHTML = "Input does not contain a lowercase w."
+	}
+	if (koanNumber==3){
+		document.getElementById("theRule").innerHTML = "At least as many vowels as consonants."
+	}
+	if (koanNumber==4){
+		document.getElementById("theRule").innerHTML = "Only France is valid."
+	}
+	if (koanNumber==5){
+		document.getElementById("theRule").innerHTML = "An even number of words."
+	}
+	if (koanNumber==6){
+		document.getElementById("theRule").innerHTML = "Each letter can only be used once."
+	}
+	if (koanNumber==7){
+		document.getElementById("theRule").innerHTML = "Three words, all different lengths."
+	}
+}
+
+
+//-----------------------
+
+function next_koan(){
+	if (koanNumber<7){
+		koanNumber+=1
+		document.getElementById("theRule").innerHTML = ""
+		if (koanNumber==2){
+			document.getElementById("koan").innerHTML = "Koan 2/7"
+			document.getElementById("testsPerformed").innerHTML='"nineteen" has the buddha-nature.<br>"twenty" does NOT have the buddha-nature.<br>'
+		}
+		if (koanNumber==3){
+			document.getElementById("koan").innerHTML = "Koan 3/7"
+			document.getElementById("testsPerformed").innerHTML='"Romeo" has the buddha-nature.<br>"Juliet" has the buddha-nature.<br>"Tybalt" does NOT have the buddha-nature.<br>'
+		}
+		if (koanNumber==4){
+			document.getElementById("koan").innerHTML = "Koan 4/7"
+			document.getElementById("testsPerformed").innerHTML='"France" has the buddha-nature.<br>"Belgium" does NOT have the buddha-nature.<br>'
+		}
+		if (koanNumber==5){
+			document.getElementById("koan").innerHTML = "Koan 5/7"
+			document.getElementById("testsPerformed").innerHTML='"I cannot see you" has the buddha-nature.<br>"You are invisible" does NOT have the buddha-nature.<br>'
+		}
+		if (koanNumber==6){
+			document.getElementById("koan").innerHTML = "Koan 6/7"
+			document.getElementById("testsPerformed").innerHTML='"Vampires" has the buddha-nature.<br>"Werewolves" does NOT have the buddha-nature.<br>'
+		}
+		if (koanNumber==7){
+			document.getElementById("koan").innerHTML = "Koan 7/7"
+			document.getElementById("testsPerformed").innerHTML='"Honor and Justice" has the buddha-nature.<br>"Peace and Joy" does NOT have the buddha-nature.<br>'
+		}
+	}
+}
+
+
+</script>
+</body>
+</html>
+
